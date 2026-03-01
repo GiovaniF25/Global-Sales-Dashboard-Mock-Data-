@@ -1,0 +1,46 @@
+table fMetas
+	lineageTag: 4a408e71-7759-468d-afed-aa93e731ca80
+
+	column Mes
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b4244c81-336f-4f42-89d3-25050df352b0
+		summarizeBy: none
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column idGerencia
+		dataType: int64
+		formatString: 0
+		lineageTag: 12e7a43c-cf3f-4605-87f3-999243ad87c3
+		summarizeBy: none
+		sourceColumn: idGerencia
+
+		annotation SummarizationSetBy = Automatic
+
+	column Meta
+		dataType: int64
+		formatString: 0
+		lineageTag: ffc86bcb-f59b-4038-b097-c4ca8269ec2a
+		summarizeBy: sum
+		sourceColumn: Meta
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fMetas-7aa692c6-d922-4fcd-9e73-34a4637e6fec = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\ProjetoMajestic\Desenvolvimento\Arquivo de Metas.txt"),[Delimiter="#(tab)", Columns=3, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Mes", type date}, {"idGerencia", Int64.Type}, {"Meta", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,190 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 347.33334350585938,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 881,
+            "y": 357
+          },
+          "nodeIndex": "dCalendario",
+          "size": {
+            "height": 302,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "dCliente",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 6.2999999999999545,
+            "y": 248.5
+          },
+          "nodeIndex": "dFilial",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 374.8,
+            "y": 0
+          },
+          "nodeIndex": "dLocal",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 575.5
+          },
+          "nodeIndex": "dPagamento",
+          "size": {
+            "height": 128,
+            "width": 275
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 913.3,
+            "y": 17
+          },
+          "nodeIndex": "dProduto",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 650.5,
+            "y": 6
+          },
+          "nodeIndex": "dVendedor",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 453.70000000000005,
+            "y": 253
+          },
+          "nodeIndex": "fVendas",
+          "size": {
+            "height": 403,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 439,
+            "y": 688
+          },
+          "nodeIndex": "fMetas",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1248.1,
+            "y": 416
+          },
+          "nodeIndex": "AuxFrete",
+          "size": {
+            "height": 135,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1264.3,
+            "y": 0
+          },
+          "nodeIndex": "Medidas",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1628.1,
+            "y": 0
+          },
+          "nodeIndex": "TbMedidas",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2024.3,
+            "y": 0
+          },
+          "nodeIndex": "Quantidades ALL",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2420.5,
+            "y": 0
+          },
+          "nodeIndex": "Quantidade VALUES",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

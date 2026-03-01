@@ -1,0 +1,80 @@
+table dLocal
+	lineageTag: cbc3bf97-d4c9-415f-8925-1ec86bf18dd7
+
+	column IdCidade
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a678f773-fccf-410b-bfce-85a217b63cfb
+		summarizeBy: none
+		sourceColumn: IdCidade
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cidade
+		dataType: string
+		lineageTag: 289fdceb-e363-4bb6-aefa-e862740c9570
+		summarizeBy: none
+		sourceColumn: Cidade
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Estado
+		dataType: string
+		lineageTag: d6825532-b4d7-4135-a3de-fa20af8f4451
+		summarizeBy: none
+		sourceColumn: Estado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column País
+		dataType: string
+		lineageTag: e7d277d8-12cf-437e-89ab-7e76098dfab2
+		summarizeBy: none
+		sourceColumn: País
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Continente
+		dataType: string
+		lineageTag: 66c94ae0-64b7-4fe7-884e-bdac3279b169
+		summarizeBy: none
+		sourceColumn: Continente
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Bandeira
+		dataType: string
+		lineageTag: 6ae1df7c-cc50-4c44-94f4-051acec81c9b
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: Bandeira
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition dLocal-ef16b952-1a95-451f-afa0-f7fd872fe6f1 = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents(Desenvolvimento & "Majestic Exportadora Mini.xlsx"), null, true),
+				    dLocal_Table = Fonte{[Item="dLocal",Kind="Table"]}[Data],
+				    #"Tipo Alterado" = Table.TransformColumnTypes(dLocal_Table,{{"IdCidade", Int64.Type}, {"Cidade", type text}, {"Estado", type text}, {"País", type text}, {"Continente", type text}, {"Bandeira", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

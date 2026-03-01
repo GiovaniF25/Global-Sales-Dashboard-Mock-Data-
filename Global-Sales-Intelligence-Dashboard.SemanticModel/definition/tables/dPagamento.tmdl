@@ -1,0 +1,39 @@
+table dPagamento
+	lineageTag: e08cfebb-4fb2-4fe8-8fd6-626b1e7e2862
+
+	column idPagamento
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: dceda480-d452-4589-8a2e-362ecd1a042f
+		summarizeBy: none
+		sourceColumn: idPagamento
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Forma
+		dataType: string
+		lineageTag: 731b0c26-0ba4-4bb6-81de-3203f708c786
+		summarizeBy: none
+		sourceColumn: Forma
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition dPagamento-93210c2c-7eba-4e54-a352-05b1dee2beae = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents(Desenvolvimento & "Majestic Exportadora Mini.xlsx"), null, true),
+				    dPagamento_Table = Fonte{[Item="dPagamento",Kind="Table"]}[Data],
+				    #"Tipo Alterado" = Table.TransformColumnTypes(dPagamento_Table,{{"idPagamento", Int64.Type}, {"Forma", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

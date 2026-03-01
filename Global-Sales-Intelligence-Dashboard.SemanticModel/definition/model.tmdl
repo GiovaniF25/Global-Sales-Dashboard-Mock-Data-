@@ -1,0 +1,34 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["dCliente","dFilial","dLocal","dPagamento","dProduto","dVendedor","fVendas","dCalendario","AuxFrete","Desenvolvimento","fMetas","Medidas","TbMedidas"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dCliente
+ref table DateTableTemplate_7bf21f9a-abc5-4669-a494-b79d7d2f5169
+ref table dFilial
+ref table dLocal
+ref table dPagamento
+ref table dProduto
+ref table dVendedor
+ref table fVendas
+ref table LocalDateTable_c68fe309-b1c0-419d-9bf4-c08853dfb7bd
+ref table dCalendario
+ref table LocalDateTable_d22f56ad-e8b7-41dd-9221-56fe5d72091e
+ref table fMetas
+ref table AuxFrete
+ref table Medidas
+ref table TbMedidas
+ref table 'Quantidades ALL'
+ref table 'Quantidade VALUES'
+
+ref cultureInfo pt-BR
+

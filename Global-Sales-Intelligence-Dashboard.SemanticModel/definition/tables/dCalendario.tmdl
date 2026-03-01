@@ -1,0 +1,141 @@
+table dCalendario
+	lineageTag: 029e6362-d7aa-47e2-b24d-69fcf984e755
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a8108cba-4c60-4a5c-b40c-d89ab30a18c2
+		summarizeBy: none
+		sourceColumn: Data
+
+		variation Variation
+			isDefault
+			relationship: 7c670836-64b0-44fd-9a54-ded71a26d4a8
+			defaultHierarchy: LocalDateTable_d22f56ad-e8b7-41dd-9221-56fe5d72091e.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 5b416ab7-c726-424c-9730-a83939dabd6b
+		summarizeBy: sum
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nome do Mês'
+		dataType: string
+		lineageTag: f750335d-0a91-49d5-8173-88aae6227a79
+		summarizeBy: none
+		sourceColumn: Nome do Mês
+		sortByColumn: Mês
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Mês
+		dataType: int64
+		formatString: 0
+		lineageTag: 9bc30bd9-5205-4914-9d2b-95ed6edb2b5f
+		summarizeBy: sum
+		sourceColumn: Mês
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dia
+		dataType: int64
+		formatString: 0
+		lineageTag: 9c8fa6af-6d05-42e2-809f-e77b27e56188
+		summarizeBy: sum
+		sourceColumn: Dia
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nome do Dia'
+		dataType: string
+		lineageTag: 98001c35-2885-4952-a254-b3dd9d5b85af
+		summarizeBy: none
+		sourceColumn: Nome do Dia
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Trimestre
+		dataType: string
+		lineageTag: c68620dd-2ae2-4797-a032-8c66d2003f02
+		summarizeBy: none
+		sourceColumn: Trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Mes e Ano'
+		dataType: string
+		lineageTag: 1788d462-f2c5-4847-b480-a096a0db9a49
+		summarizeBy: none
+		sourceColumn: Mes e Ano
+		sortByColumn: 'Ano Mes Num'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Ano Mes Num'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 055c51a1-ae7a-4ae2-adfa-57d1857846fb
+		summarizeBy: sum
+		sourceColumn: Ano Mes Num
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dCalendario-b9642201-8f80-4222-a08f-021225c06a99 = m
+		mode: import
+		source =
+				let
+				    /*  CRIANDO AS VARIAVEIS */
+				
+				    Tabela = List.Buffer( fVendas[Data] ),
+				
+				    MinDate = List.Min( Tabela ),
+				    MaxDate = List.Max( Tabela ),
+				
+				    MaxYear = Date.Year( MaxDate ),
+				    MinYear = Date.Year( MinDate ),
+				    InitialDate = #date(  MinYear ,  1  ,  1  ),
+				    EndDate = #date(  MaxYear ,  12  ,  31  ),
+				
+				    Duration = Duration.Days(  EndDate - InitialDate ) + 1,
+				
+				
+				
+				    Fonte = List.Dates(InitialDate , Duration, #duration(1, 0, 0, 0)),
+				    #"Convertido para Tabela" = Table.FromList(Fonte, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Convertido para Tabela",{{"Column1", "Data"}}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"Data", type date}}),
+				    #"Ano Inserido" = Table.AddColumn(#"Tipo Alterado", "Ano", each Date.Year([Data]), Int64.Type),
+				    #"Nome do Mês Inserido" = Table.AddColumn(#"Ano Inserido", "Nome do Mês", each Date.MonthName([Data]), type text),
+				    #"Mês Inserido" = Table.AddColumn(#"Nome do Mês Inserido", "Mês", each Date.Month([Data]), Int64.Type),
+				    #"Dia Inserido" = Table.AddColumn(#"Mês Inserido", "Dia", each Date.Day([Data]), Int64.Type),
+				    #"Nome do Dia Inserido" = Table.AddColumn(#"Dia Inserido", "Nome do Dia", each Date.DayOfWeekName([Data]), type text),
+				    #"Trimestre Inserido" = Table.AddColumn(#"Nome do Dia Inserido", "Trimestre", each Date.QuarterOfYear([Data]), Int64.Type),
+				    #"Prefixo Adicionado" = Table.TransformColumns(#"Trimestre Inserido", {{"Trimestre", each "T" & Text.From(_, "pt-BR"), type text}}),
+				    #"Coluna Personalizada Adicionada" = Table.AddColumn(#"Prefixo Adicionado", "Mes e Ano", each Text.Combine({Text.Start(Text.Proper([Nome do Mês]), 3), " ", Text.From([Ano], "pt-BR")}), type text),
+				    #"Coluna Personalizada Adicionada1" = Table.AddColumn(#"Coluna Personalizada Adicionada", "Ano Mes Num", each Text.Combine({Text.From([Ano], "pt-BR"), Text.PadStart(Text.From([Mês], "pt-BR"), 2, "0")}), type text),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Coluna Personalizada Adicionada1",{{"Ano Mes Num", Int64.Type}})
+				in
+				    #"Tipo Alterado1"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,46 @@
+relationship 2badf155-782c-48ce-ae83-325f6191a5fc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fVendas.'Data de Faturamento'
+	toColumn: LocalDateTable_c68fe309-b1c0-419d-9bf4-c08853dfb7bd.Date
+
+relationship 7c670836-64b0-44fd-9a54-ded71a26d4a8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dCalendario.Data
+	toColumn: LocalDateTable_d22f56ad-e8b7-41dd-9221-56fe5d72091e.Date
+
+relationship 815374d4-dc5c-4b3d-8705-f7aa2c5377ea
+	fromColumn: dCliente.idCidade
+	toColumn: dLocal.IdCidade
+
+relationship 7f721743-4b0e-4dd3-82ab-b7defd3d9019
+	fromColumn: fVendas.Cliente
+	toColumn: dCliente.idCliente
+
+relationship 0c8b9b10-9627-4915-85ba-2ef50be218ad
+	fromColumn: fVendas.Data
+	toColumn: dCalendario.Data
+
+relationship 226f00e5-d19d-4da6-99e9-741c29ec1610
+	fromColumn: fVendas.Vendedor
+	toColumn: dVendedor.idVendedor
+
+relationship a14b3743-acb8-47de-8d91-e545d4bd3331
+	fromColumn: fVendas.Produto
+	toColumn: dProduto.IdProduto
+
+relationship 6895c77d-d776-4b40-932d-d7e27947f282
+	fromColumn: fVendas.Filial
+	toColumn: dFilial.IdGerencia
+
+relationship 4bb44bbf-8f8d-489c-b8b5-da3e6b149d68
+	fromColumn: fVendas.'Forma de Pagamento'
+	toColumn: dPagamento.idPagamento
+
+relationship 1c3ed528-91f2-4e85-9249-674f5066fd0d
+	fromColumn: fMetas.Mes
+	toColumn: dCalendario.Data
+
+relationship 75e43fbe-f74b-4cdf-82ec-5081fefae88d
+	fromColumn: fMetas.idGerencia
+	toColumn: dFilial.IdGerencia
+

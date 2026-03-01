@@ -1,0 +1,24 @@
+table 'Quantidades ALL'
+	lineageTag: d3fc77e9-4519-4a83-8cb5-843ba2e4cbc2
+
+	column Quantidade
+		formatString: 0
+		lineageTag: 0036a229-75ef-469f-94b2-eead8d9f80d2
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: fVendas[Quantidade]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Quantidades ALL-04bd5c2f-2366-4d8c-a15d-8f9353dc5be5' = calculated
+		mode: import
+		source = ```
+				
+				ALL(fVendas[Quantidade])
+				
+				
+				
+				```
+
+	annotation PBI_Id = 43ea60a5d9954bf894c9424f5d53a588
+

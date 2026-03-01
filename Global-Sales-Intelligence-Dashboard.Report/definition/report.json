@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.1.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY21SU07",
+      "reportVersionAtImport": {
+        "visual": "1.8.61",
+        "report": "2.0.61",
+        "page": "1.3.61"
+      },
+      "type": "SharedResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "true"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY21SU07",
+          "path": "BaseThemes/CY21SU07.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "01_Analise_Geral4508184723358706.png",
+          "path": "01_Analise_Geral4508184723358706.png",
+          "type": "Image"
+        },
+        {
+          "name": "02_Analise_Continental14662680247125692.png",
+          "path": "02_Analise_Continental14662680247125692.png",
+          "type": "Image"
+        }
+      ]
+    },
+    {
+      "name": "BrickChart1454871868044",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "BrickChart1454871868044.pbiviz.json",
+          "path": "BrickChart1454871868044.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "PBI_CV_25997FEB_F466_44FA_B562_AC4063283C4C",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "PBI_CV_25997FEB_F466_44FA_B562_AC4063283C4C.pbiviz.json",
+          "path": "PBI_CV_25997FEB_F466_44FA_B562_AC4063283C4C.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "ImageGrid_FC5183B9_926C_45E0_B5F7_0CE9EAF1DA9B",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "ImageGrid_FC5183B9_926C_45E0_B5F7_0CE9EAF1DA9B.pbiviz.json",
+          "path": "ImageGrid_FC5183B9_926C_45E0_B5F7_0CE9EAF1DA9B.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "TextEnhancerByMAQ46ASG0293G65JY43S89DKJ9",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "TextEnhancerByMAQ46ASG0293G65JY43S89DKJ9.pbiviz.json",
+          "path": "TextEnhancerByMAQ46ASG0293G65JY43S89DKJ9.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": false
+  }
+}

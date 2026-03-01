@@ -1,0 +1,193 @@
+table fVendas
+	lineageTag: 26e9b221-32ac-4b82-af10-3eaf9616293f
+
+	column idVenda
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5e6439b9-dba3-4326-988f-2d6bfb164c94
+		summarizeBy: sum
+		sourceColumn: idVenda
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column idNota
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fcb212c3-ccce-463d-bb51-73eff5562d4c
+		summarizeBy: sum
+		sourceColumn: idNota
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Data
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 390f94b2-9d88-436b-9e21-60d8b8b61a96
+		summarizeBy: none
+		sourceColumn: Data
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Frete
+		dataType: int64
+		formatString: 0
+		lineageTag: a7d267dd-fd53-4505-a8b5-0c18895ef07c
+		summarizeBy: sum
+		sourceColumn: Frete
+
+		annotation SummarizationSetBy = Automatic
+
+	column Desconto
+		dataType: int64
+		formatString: 0
+		lineageTag: b2551c9d-852d-4221-a4fd-c7b4f0f1cecb
+		summarizeBy: sum
+		sourceColumn: Desconto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendedor
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: bba919de-fe79-4310-aa6e-9f5a25348b0b
+		summarizeBy: none
+		sourceColumn: Vendedor
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cliente
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 28568c70-8d87-4db8-ac59-aa7371f72c4c
+		summarizeBy: none
+		sourceColumn: Cliente
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Produto
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cf4841fd-7533-4542-9dac-41e3ef04df1d
+		summarizeBy: none
+		sourceColumn: Produto
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantidade
+		dataType: int64
+		formatString: 0
+		lineageTag: bfc374c8-9701-49af-90c0-e32a63a26d0b
+		summarizeBy: sum
+		sourceColumn: Quantidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column Filial
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: bcdbe30b-4055-43bd-9d2b-4840b268799d
+		summarizeBy: none
+		sourceColumn: Filial
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Forma de Pagamento'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 877cc9d1-e19f-4d45-b1c5-8d4f1bb77682
+		summarizeBy: none
+		sourceColumn: Forma de Pagamento
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data de Faturamento'
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 99496988-2149-49fb-a3ce-5d530c295dab
+		summarizeBy: none
+		sourceColumn: Data de Faturamento
+
+		variation Variation
+			isDefault
+			relationship: 2badf155-782c-48ce-ae83-325f6191a5fc
+			defaultHierarchy: LocalDateTable_c68fe309-b1c0-419d-9bf4-c08853dfb7bd.'Hierarquia de datas'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Vl.Frete' =
+			
+			LOOKUPVALUE(
+			    AuxFrete[Vl.Frete],
+			    AuxFrete[idNota], fVendas[idNota]
+			)
+		isHidden
+		lineageTag: 9778a578-4d39-4f7d-ae60-ba2992db8b6f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'CLASSIFICACAO SWITCH' = ```
+			
+			SWITCH(
+			TRUE(),
+			fVendas[Quantidade] > 15 , "Excelente",
+			fVendas[Quantidade] > 10 , "Bom",
+			fVendas[Quantidade] > 5 , "Regular",
+			"Ruim"
+			)
+			
+			```
+		lineageTag: c8b63736-2858-4997-9b9c-c5f7dc7de009
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition fVendas-9895adad-7a7e-4b37-a5c1-7f5943aa394e = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents(Desenvolvimento & "Majestic Exportadora Mini.xlsx"), null, true),
+				    fVendas_Table = Fonte{[Item="fVendas",Kind="Table"]}[Data],
+				    #"Tipo Alterado" = Table.TransformColumnTypes(fVendas_Table,{{"idVenda", Int64.Type}, {"idNota", Int64.Type}, {"Data", type date}, {"Frete", Int64.Type}, {"Desconto", Int64.Type}, {"Vendedor", Int64.Type}, {"Cliente", Int64.Type}, {"Produto", Int64.Type}, {"Quantidade", Int64.Type}, {"Filial", Int64.Type}, {"Forma de Pagamento", Int64.Type}, {"Data de Faturamento", type date}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

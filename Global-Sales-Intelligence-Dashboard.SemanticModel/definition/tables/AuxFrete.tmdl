@@ -1,0 +1,50 @@
+table AuxFrete
+	isHidden
+	lineageTag: 3e0d9eb1-dc96-4109-b91f-7e456c1ef2d6
+
+	column 'Vl.Frete'
+		dataType: double
+		isHidden
+		lineageTag: 911cda10-3642-4236-9d3a-fce9e77b821c
+		summarizeBy: sum
+		sourceColumn: Vl.Frete
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column idNota
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7945ed68-be25-4d9e-9b6c-10ef1ca7e71b
+		summarizeBy: sum
+		sourceColumn: idNota
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition AuxFrete-feeca19e-cba4-4f62-b29f-a0b8a1472831 = m
+		mode: import
+		source =
+				let
+				    Fonte = fVendas,
+				    #"Outras Colunas Removidas" = Table.SelectColumns(Fonte,{"idNota", "Frete"}),
+				    #"Linhas Agrupadas" = Table.Group(#"Outras Colunas Removidas", {"idNota", "Frete"}, {{"Linhas", each _, type table [idNota=nullable number, Frete=nullable number]}}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Linhas Agrupadas", "Registros", each Table.RowCount( [Linhas]  )),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Personalização Adicionada",{"Linhas"}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Removidas",{{"Registros", Int64.Type}}),
+				    #"Personalização Adicionada1" = Table.AddColumn(#"Tipo Alterado", "Personalizar", each [Frete] / [Registros]),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Personalização Adicionada1",{{"Personalizar", type number}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Tipo Alterado1",{{"Personalizar", "Vl.Frete"}}),
+				    #"Outras Colunas Removidas1" = Table.SelectColumns(#"Colunas Renomeadas",{"Vl.Frete", "idNota"})
+				in
+				    #"Outras Colunas Removidas1"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

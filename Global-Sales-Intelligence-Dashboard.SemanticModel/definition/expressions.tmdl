@@ -1,0 +1,7 @@
+expression Desenvolvimento = "C:\ProjetoMajestic\Dados\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 5c5b9b90-f39d-4902-a45c-787e25d35353
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Text
+

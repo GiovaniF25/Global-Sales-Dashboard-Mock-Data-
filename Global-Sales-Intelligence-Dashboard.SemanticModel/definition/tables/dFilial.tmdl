@@ -1,0 +1,89 @@
+table dFilial
+	lineageTag: 9ff6c670-d926-4fa2-a926-f5f2e849e229
+
+	column IdGerencia
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cae4e7a2-a0a0-43b6-8e32-d6d8dd87cab1
+		summarizeBy: none
+		sourceColumn: IdGerencia
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Filial
+		dataType: string
+		lineageTag: e1a2f5aa-7c58-4d09-af6a-cf8e19534042
+		summarizeBy: none
+		sourceColumn: Filial
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Fantasia
+		dataType: string
+		lineageTag: 02cc3c46-f198-427b-aa27-8e1bb8633d8c
+		summarizeBy: none
+		sourceColumn: Fantasia
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Cidade
+		dataType: string
+		lineageTag: 16bb53b8-fa8e-45ee-9548-cd3d8bb26ab3
+		summarizeBy: none
+		sourceColumn: Cidade
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Nome Estado'
+		dataType: string
+		lineageTag: 307e27a6-e471-4a08-8dd2-2d1c9fef7795
+		summarizeBy: none
+		sourceColumn: Nome Estado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Estado
+		dataType: string
+		lineageTag: c44df1fc-6a86-4b19-8c7d-c4b4cd9b09d1
+		summarizeBy: none
+		sourceColumn: Estado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Região
+		dataType: string
+		lineageTag: 99dd8fdd-9d53-486b-b472-739f8b2e7e27
+		summarizeBy: none
+		sourceColumn: Região
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition dFilial-8d9d2679-dfaa-4232-acc0-aec0de932f71 = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents(Desenvolvimento &  "Majestic Exportadora Mini.xlsx"), null, true),
+				    dFilial_Table = Fonte{[Item="dFilial",Kind="Table"]}[Data],
+				    #"Tipo Alterado" = Table.TransformColumnTypes(dFilial_Table,{{"IdGerencia", Int64.Type}, {"Filial", type text}, {"Fantasia", type text}, {"Cidade", type text}, {"Nome Estado", type text}, {"Estado", type text}, {"Região", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

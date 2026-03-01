@@ -1,0 +1,29 @@
+{
+  "version": "4.0.1",
+  "author": {
+    "name": "MAQ Software",
+    "email": "support@maqsoftware.com"
+  },
+  "resources": [
+    {
+      "resourceId": "rId0",
+      "sourceType": 5,
+      "file": "resources/BrickChart1454871868044.pbiviz.json"
+    }
+  ],
+  "visual": {
+    "guid": "BrickChart1454871868044",
+    "name": "BrickChartByMAQSoftware",
+    "displayName": "Brick Chart by MAQ Software",
+    "version": "4.0.1",
+    "description": "Show the percentage breakdown of a data set with multi-color shaded bricks.",
+    "supportUrl": "http://bit.ly/maqsoftware-support",
+    "gitHubUrl": "https://github.com/MAQ-Software-Solutions/BrickChart",
+    "visualClassName": "Visual"
+  },
+  "metadata": {
+    "pbivizjson": {
+      "resourceId": "rId0"
+    }
+  }
+}

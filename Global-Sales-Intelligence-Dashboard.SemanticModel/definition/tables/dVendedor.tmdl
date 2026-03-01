@@ -1,0 +1,60 @@
+table dVendedor
+	lineageTag: ceca51c6-0aa1-4142-b146-e96e2017660c
+
+	column idVendedor
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 741a5294-424a-4225-b1f2-83f43f99447d
+		summarizeBy: none
+		sourceColumn: idVendedor
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome
+		dataType: string
+		lineageTag: 19fb5c40-3d17-4a97-9e80-49461a553b68
+		summarizeBy: none
+		sourceColumn: Nome
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Gerente
+		dataType: string
+		lineageTag: d62fcce9-47ff-437f-918d-d2e658a44f27
+		summarizeBy: none
+		sourceColumn: Gerente
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'URL Gerente'
+		dataType: string
+		lineageTag: a1711cbc-4108-483e-9359-bb920f784723
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: URL Gerente
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition dVendedor-59293693-cec8-4cad-94c6-7ccd0a283e5e = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents(Desenvolvimento & "Majestic Exportadora Mini.xlsx"), null, true),
+				    dVendedor_Table = Fonte{[Item="dVendedor",Kind="Table"]}[Data],
+				    #"Tipo Alterado" = Table.TransformColumnTypes(dVendedor_Table,{{"idVendedor", Int64.Type}, {"Nome", type text}, {"Gerente", type text}, {"URL Gerente", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,115 @@
+table dProduto
+	lineageTag: 909c6429-49fe-468f-82e5-413c1076c920
+
+	column IdProduto
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f18faab0-7cbd-4023-b997-a9301b44d929
+		summarizeBy: none
+		sourceColumn: IdProduto
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome
+		dataType: string
+		lineageTag: cef871d9-7804-4eea-962d-0b0f637f0d17
+		summarizeBy: none
+		sourceColumn: Nome
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Valor Unitario'
+		dataType: double
+		isHidden
+		lineageTag: 5da633dc-f8ee-4b93-9c89-ecefd822ba04
+		summarizeBy: none
+		sourceColumn: Valor Unitario
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Custo Unitário'
+		dataType: double
+		isHidden
+		lineageTag: 28d134ad-5ac8-4c4a-90e2-2c0b5de67190
+		summarizeBy: none
+		sourceColumn: Custo Unitário
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Sub-Categoria
+		dataType: string
+		lineageTag: c4291954-4dc7-45da-8678-14446b2530f6
+		summarizeBy: none
+		sourceColumn: Sub-Categoria
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Categoria
+		dataType: string
+		lineageTag: b02f66ac-aa06-4953-8fe8-898a17790080
+		summarizeBy: none
+		sourceColumn: Categoria
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Sub-Cat URL'
+		dataType: string
+		lineageTag: 2bbf281c-2668-4c9c-8976-07b0674a4c11
+		summarizeBy: none
+		sourceColumn: Sub-Cat URL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Classificacao Produto' =
+			
+			SWITCH(
+			    TRUE(),
+			    [14 Receita Líquida] > 4000000, "Excelente",
+			    [14 Receita Líquida] > 3000000, "Muito Bom",
+			    [14 Receita Líquida] > 2000000, "Bom",
+			    [14 Receita Líquida] > 1000000, "Satisfatório",
+			    [14 Receita Líquida] > 700000, "Regular",
+			    [14 Receita Líquida] > 600000, "Avaliar",
+			    [14 Receita Líquida] > 400000, "Atenção",
+			    "Ruim"
+			)
+		lineageTag: 49a07288-1aca-4f15-80a6-5ce8547f6ce1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition dProduto-c36124f0-9d37-4ea3-95d3-dc3b7f07aa75 = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents(Desenvolvimento & "Majestic Exportadora Mini.xlsx"), null, true),
+				    dProduto_Table = Fonte{[Item="dProduto",Kind="Table"]}[Data],
+				    #"Tipo Alterado" = Table.TransformColumnTypes(dProduto_Table,{{"IdProduto", Int64.Type}, {"Nome", type text}, {"Valor Unitario", type number}, {"Custo Unitário", type number}, {"Sub-Categoria", type text}, {"Categoria", type text}, {"Sub-Cat URL", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,34 @@
+table TbMedidas
+	lineageTag: 57a3b117-3dc8-462a-b3a4-61682fc80790
+
+	column Medida
+		dataType: string
+		lineageTag: d9d7abf7-ef77-45a5-92cd-0fdbf3b93bef
+		summarizeBy: none
+		sourceColumn: Medida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Codigo
+		dataType: string
+		lineageTag: 0bcad479-b1fe-42df-a381-dfbf698d91d3
+		summarizeBy: none
+		sourceColumn: Codigo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition TbMedidas-42195c99-1d9b-4aef-a31d-73e47c22ad3b = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCkvNS0ksVnAqKi3JV9JRcgoKUYrViVYKLElJVXDOyUzNK0ktBooHhjgjxCF6wKJhYNGg1OTUzJJEBZ/MwtLMlESgjI9noFJsLAA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Medida = _t, Codigo = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Medida", type text}, {"Codigo", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+
