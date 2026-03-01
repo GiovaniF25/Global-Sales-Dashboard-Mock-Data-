@@ -6,7 +6,8 @@
     "y": 530.88,
     "z": 2000,
     "height": 78.72,
-    "width": 176.64
+    "width": 176.64,
+    "tabOrder": 15000
   },
   "visual": {
     "visualType": "card",
@@ -125,5 +126,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "6ae9803e781b8ec4e03e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "38 Visao America do Sul"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

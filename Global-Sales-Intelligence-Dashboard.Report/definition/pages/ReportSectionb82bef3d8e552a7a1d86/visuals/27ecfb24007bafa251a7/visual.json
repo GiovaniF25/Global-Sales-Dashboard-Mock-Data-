@@ -6,7 +6,8 @@
     "y": 628.78903274942877,
     "z": 12000,
     "height": 68.240670220868239,
-    "width": 155.97867479055597
+    "width": 155.97867479055597,
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "card",
@@ -125,5 +126,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "627c6d1035c09e674edb",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "45 - Top 1 Lucro(%) America do Sul"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }
