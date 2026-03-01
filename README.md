@@ -9,6 +9,8 @@ General Analysis: High-level Sales and Revenue metrics.
 Continental Analysis: Simple profit comparison across global regions.
 
 🛠️ Technical Focus
-Format: Built using the .pbip project extension for granular tracking.
+Format: Built using the .pbip extension to allow granular tracking of the semantic model and report layout.
 
-Version Control: Uses Branches (like refactor/) to manage small updates and naming conventions independently from the main file.
+Version Control: Uses Branches (like refactor/) to manage updates and naming conventions independently from the main branch.
+
+Data Visualization: This project uses a local data cache (.pbi/cache.abf). This allows anyone to open the report and see the visuals with the mock data immediately, without needing the original Excel file or performing a refresh.
