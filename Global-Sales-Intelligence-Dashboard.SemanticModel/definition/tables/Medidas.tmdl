@@ -188,7 +188,7 @@ table Medidas
 			
 			
 			```
-		formatString: 0.000%;-0.000%;0.000%
+		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: c10bdaa6-3a7b-4d9a-9472-c866860e525d
 
 	measure '16 Ticket Medio' = ```
